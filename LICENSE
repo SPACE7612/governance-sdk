@@ -1,0 +1,21 @@
+BuildPaid Governance SDK License
+
+Copyright (c) 2026 BuildPaid. All rights reserved.
+
+Patent Pending — 86 provisional patent applications filed, 1,663+ claims.
+
+This SDK client library is provided for use exclusively with the BuildPaid
+Governance OS API. You may use this library to integrate with BuildPaid
+services under your valid API agreement.
+
+You may NOT:
+- Use this library to build competing governance products
+- Reverse-engineer the API protocol or signature verification scheme
+- Redistribute this library outside your organization without written consent
+- Remove or modify patent, copyright, or attribution notices
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL BUILDPAID BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY ARISING FROM USE OF THIS SOFTWARE.
+
+For licensing inquiries: sean@buildpaid.ai
