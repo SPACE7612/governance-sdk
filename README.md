@@ -163,11 +163,31 @@ Rate limit headers are included on every response: `X-RateLimit-Remaining`, `X-R
 | Govern | $50/project/month | Full 17-engine compilation, unlimited verdicts, notarization, payment rail |
 | Enterprise | Custom | Volume pricing, dedicated support, custom governance profiles, SOC 2, SLA |
 
+## Minimal Integration
+
+10 lines to govern a draw:
+
+```javascript
+const BuildPaid = require('@buildpaid/governance-sdk');
+const bp = new BuildPaid({ apiKey: process.env.BUILDPAID_API_KEY });
+
+async function shouldRelease(projectId) {
+  const { data } = await bp.score.fundability({ contract_id: projectId });
+  if (data.verdict !== 'FUNDABLE') return { release: false, reason: data.pral_decision };
+  const { data: proof } = await bp.provenance.verify({ hash: data.provenance_hash });
+  if (proof.status !== 'AUTHENTIC') return { release: false, reason: 'PROVENANCE_TAMPERED' };
+  return { release: true, score: data.score, verdict: data.verdict };
+}
+```
+
 ## Examples
 
 See the [`examples/`](./examples) directory:
 
+- [`minimal.js`](./examples/minimal.js) — 10 lines to govern a draw
 - [`score-compliance.js`](./examples/score-compliance.js) — Score a project's compliance posture
+- [`verify-verdict.js`](./examples/verify-verdict.js) — End-to-end verdict verification (lender flow)
+- [`simulate-draw.js`](./examples/simulate-draw.js) — Simulate a draw request before submission
 - [`verify-provenance.js`](./examples/verify-provenance.js) — Verify a provenance hash chain
 - [`webhook-handler.js`](./examples/webhook-handler.js) — Handle and verify incoming webhooks
 - [`portfolio-scan.js`](./examples/portfolio-scan.js) — Scan an entire portfolio for contradictions
