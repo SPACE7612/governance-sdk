@@ -52,6 +52,8 @@ class BuildPaid {
       fundability: (params) => this._call('score.fundability', params),
       bpi: (params) => this._call('score.bpi', params),
       exposure: (params) => this._call('score.exposure', params),
+      credit: (params) => this._call('score.credit', params),
+      adequacy: (params) => this._call('score.adequacy', params),
     };
 
     this.compliance = {
@@ -65,6 +67,12 @@ class BuildPaid {
       verify: (params) => this._call('provenance.verify', params),
       export: (params) => this._call('provenance.export', params),
       chain: (params) => this._call('provenance.chain', params),
+    };
+
+    this.governance = {
+      profile: (params) => this._call('governance.profile', params),
+      compile: (params) => this._call('governance.compile', params),
+      payment: (params) => this._call('governance.payment', params),
     };
 
     this.events = {
