@@ -1,0 +1,40 @@
+{
+  "name": "@buildpaid/governance-sdk",
+  "version": "1.0.0",
+  "description": "Deterministic construction governance SDK. Score compliance, verify provenance, detect contradictions, execute governed payments.",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node examples/score-compliance.js"
+  },
+  "keywords": [
+    "construction",
+    "governance",
+    "compliance",
+    "provenance",
+    "fintech",
+    "construction-finance",
+    "payment-rails",
+    "audit",
+    "deterministic",
+    "kernel"
+  ],
+  "author": "Sean Pace <sean@buildpaid.ai>",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://app.buildpaid.ai/developers.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buildpaid/governance-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/buildpaid/governance-sdk/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
