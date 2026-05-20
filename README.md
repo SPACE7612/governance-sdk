@@ -51,6 +51,8 @@ Request an API key: [sean@buildpaid.ai](mailto:sean@buildpaid.ai)
 | `score.fundability` | Fundability verdict per contract — FUNDABLE or BLOCKED |
 | `score.bpi` | BuildPaid Performance Index — 6 dimensions, tiered grade |
 | `score.exposure` | Capital exposure at risk across the portfolio |
+| `score.credit` | Governance credit score — entity rated by governed behavior |
+| `score.adequacy` | 6-dimensional adequacy vector — governance fitness |
 
 ### Compliance (GC Scope)
 
@@ -60,6 +62,14 @@ Request an API key: [sean@buildpaid.ai](mailto:sean@buildpaid.ai)
 | `compliance.gates` | Activation gate states — which gates are open/blocked |
 | `compliance.documents` | Document verification status per entity |
 | `compliance.cpral` | CPRAL labor verification — Davis-Bacon compliance |
+
+### Governance (Compiler Scope)
+
+| Method | Description |
+|---|---|
+| `governance.profile` | Get compilation rules for an industry profile |
+| `governance.compile` | Compile a full verdict for a project using the governance kernel |
+| `governance.payment` | Extract a governed payment instruction from a verdict |
 
 ### Provenance (Vendor Scope)
 
@@ -163,6 +173,21 @@ Rate limit headers are included on every response: `X-RateLimit-Remaining`, `X-R
 | Govern | $50/project/month | Full 17-engine compilation, unlimited verdicts, notarization, payment rail |
 | Enterprise | Custom | Volume pricing, dedicated support, custom governance profiles, SOC 2, SLA |
 
+## Kernel Record Types
+
+Every governed event produces a typed, immutable, cryptographically anchored record. Full TypeScript declarations in [`src/index.d.ts`](./src/index.d.ts).
+
+| Record | Description |
+|---|---|
+| `VerdictRecord` | Compiler output — FUNDABLE, BLOCKED, REVIEW, or CONDITIONAL |
+| `EvidenceRecord` | Append-only evidence accumulated during compilation |
+| `ProvenanceAnchor` | Triple-hash anchor (SHA-256, SHA3-256, BLAKE2b-512) with chain linkage |
+| `AdequacyRecord` | 6-dimensional governance fitness vector |
+| `RiskDeltaRecord` | Change between consecutive governance states |
+| `PaymentInstructionRecord` | Compilation artifact — exists fully governed or does not exist |
+| `GovernanceCreditRecord` | Entity credit score based on governed behavior, not payment history |
+| `GovernanceProfile` | Industry-specific compilation rules (construction, treasury, insurance, government, supply chain) |
+
 ## Minimal Integration
 
 10 lines to govern a draw:
@@ -188,6 +213,9 @@ See the [`examples/`](./examples) directory:
 - [`score-compliance.js`](./examples/score-compliance.js) — Score a project's compliance posture
 - [`verify-verdict.js`](./examples/verify-verdict.js) — End-to-end verdict verification (lender flow)
 - [`simulate-draw.js`](./examples/simulate-draw.js) — Simulate a draw request before submission
+- [`governance-credit.js`](./examples/governance-credit.js) — Governance credit scoring + adequacy vectors
+- [`governance-profile.js`](./examples/governance-profile.js) — Switch compilation rules by industry
+- [`governance-payment.js`](./examples/governance-payment.js) — Governance-gated payment execution
 - [`verify-provenance.js`](./examples/verify-provenance.js) — Verify a provenance hash chain
 - [`webhook-handler.js`](./examples/webhook-handler.js) — Handle and verify incoming webhooks
 - [`portfolio-scan.js`](./examples/portfolio-scan.js) — Scan an entire portfolio for contradictions
